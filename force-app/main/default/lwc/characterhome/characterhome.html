@@ -1,0 +1,20 @@
+<template>
+    <lightning-card padding-around="medium">
+        <lightning-layout>
+            <div onkeyup={handleSearch}>
+            <lightning-input padding-around="medium" type="Search" label="Name"></lightning-input>
+        </div>
+        </lightning-layout>
+        <lightning-layout multiple-rows>
+           
+            <div style="height: 1300px;">
+                <lightning-datatable
+                        key-field="id"
+                        data={hpdataset}
+                        columns={columns}
+                        show-row-number-column>
+                </lightning-datatable>
+            </div>
+        </lightning-layout>
+    </lightning-card>
+</template>

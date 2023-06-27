@@ -1,17 +1,30 @@
-import { LightningElement, track } from 'lwc';
+import { LightningElement, track, wire } from 'lwc';
+// Import message service features required for publishing and the message channel
+import { publish, MessageContext } from 'lightning/messageService';
+import PASS_DETAILS from '@salesforce/messageChannel/passselecteddetails__c';
 
-
+const actions = [
+    {label: 'Details', name: 'details'}
+];
+const columns = [
+        
+    { label: 'Name', fieldName: 'name' },
+    { label: 'Species', fieldName: 'species', type: 'text' },
+    { label: 'House', fieldName: 'house', type: 'text' },
+    { label: 'Ancestry', fieldName: 'ancestry', type: 'text' },
+    {
+        type:'action',
+        typeAttributes: {rowActions: actions }
+    }
+];
 export default class Characterhome extends LightningElement {
 
     queryterm=undefined;
     @track hpdataset = [];
-    @track columns = [
-        
-        { label: 'Name', fieldName: 'name' },
-        { label: 'Species', fieldName: 'species', type: 'text' },
-        { label: 'House', fieldName: 'house', type: 'text' },
-        { label: 'Ancestry', fieldName: 'ancestry', type: 'text' }
-    ];
+    @track columns = columns;
+    @wire(MessageContext)
+    messageContext;
+    
     
     connectedCallback(){
         this.getCharacters();
@@ -25,16 +38,16 @@ export default class Characterhome extends LightningElement {
             var nm, sp, ho, ancestry, id;
             id=data.id;
             nm=data.name;
-            ho=data.house;
-            sp=data.species;
-            ancestry = data.ancestry;
+            ho=data.house? data.house : "Not Available";
+            sp=data.species? data.species : "Not Available";
+            ancestry = data.ancestry? data.ancestry : "Not Available";
             var a =                                     //creating a json so that it matches with the column fields above
                 {
                     "name":nm,
                     "species":sp,
                     "house":ho,
                     "ancestry":ancestry,
-                    "id":id
+                    "Id":id
         };
         
         hpMap.set(id,a); //creating a map
@@ -50,11 +63,17 @@ export default class Characterhome extends LightningElement {
             
         }
     }
+    
     showList(){
         return true;
     }
     makeCall(){
         //console.log('calling out for -->'+ this.queryterm);
     }
+    handleClick(event){
+        const payload = { recordId: event.detail.row.Id };
+        publish(this.messageContext, PASS_DETAILS, payload);
+    }
+    
 
 }

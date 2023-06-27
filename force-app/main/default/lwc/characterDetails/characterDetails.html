@@ -1,0 +1,47 @@
+<template>
+    <template lwc:if={name}>
+    <div class="slds-align_absolute-center">
+    <lightning-card padding-around="medium">
+    <lightning-layout multiple-rows="true">
+        <lightning-layout-item flexibility="auto" size="12">
+            <div class="custom-box slds-box slds-p-around_medium slds-text-align_center">
+            <strong>Name: {name}</strong>
+            <h2>Alternate names: {alternate_names}</h2>
+            <h2>Species: {species}</h2>
+        </div>
+        </lightning-layout-item>
+        <lightning-layout-item size="6">
+            <div class="slds-align_absolute-center img-container">
+                <template lwc:if={image_url}>
+                    <img src={image_url} width="500" height="300" alt={name} />
+                    <br/>
+                </template>
+                <template lwc:else>
+                    <img src={svgUrl} width="500" height="300" alt="Image Not Available" />
+                    <br/>
+                </template>
+            </div>
+        </lightning-layout-item>
+        <lightning-layout-item flexibility="auto" size="12">
+            <div class="custom-box slds-box slds-p-around_medium slds-text-align_center">
+            <h2>Gender: <b>{gender}</b></h2>
+            <h2>House: <b>{house}</b></h2>
+            <h2>Date of Birth: <b>{dateOfBirth}</b></h2>
+            <h2>Year of Birth: <b>{yearOfBirth}</b></h2>
+            <h2>Wizard: <b>{wizard}</b></h2>
+            <h2>Ancestry: <b>{ancestry}</b></h2>
+            <h2>Eye Colour: <b>{eyeColour}</b></h2>
+            <h2>Hair Colour:<b> {hairColour}</b></h2>
+            <h2>Wand - Wood: <b>{wand_wood}</b></h2>
+            <h2>Wand - Core: <b>{wand_core}</b></h2>
+            <h2>Wand - Length: <b>{wand_length}</b></h2>
+            <h2>Patronus:<b> {patronus}</b></h2>
+            <h2>Is a student at Hogwarts?: <b>{hogwartsStudent}</b></h2>
+            <h2>Actor Name: <b>{actor}</b></h2>
+        </div>
+        </lightning-layout-item>
+    </lightning-layout>
+    </lightning-card>
+    </div>
+</template>
+</template>

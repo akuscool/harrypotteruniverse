@@ -11,16 +11,20 @@
         </div>
         </lightning-layout-item>
         <lightning-layout-item size="6">
-            <div class="slds-align_absolute-center img-container">
+            
                 <template lwc:if={image_url}>
+                    <div class="slds-grid slds-gutters">
+                        <div class="slds-col">
                     <img src={image_url} width="500" height="300" alt={name} />
                     <br/>
+                        </div>
+                        </div>
                 </template>
                 <template lwc:else>
                     <img src={svgUrl} width="500" height="300" alt="Image Not Available" />
                     <br/>
                 </template>
-            </div>
+           
         </lightning-layout-item>
         <lightning-layout-item flexibility="auto" size="12">
             <div class="custom-box slds-box slds-p-around_medium slds-text-align_center">
